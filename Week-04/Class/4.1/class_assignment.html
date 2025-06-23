@@ -1,0 +1,39 @@
+<!-- write a webpage which calculates simple interest on given principal rate and time by passing them to backend as query also create backend-->
+
+
+
+<html>
+<script>
+
+    async function calculateSI() {
+        const principal = parseInt(document.getElementById("principal").value);
+        const interest = parseInt(document.getElementById("interest").value);
+        const time = parseInt(document.getElementById("time").value);
+
+        //now backend call
+
+        const respond = await fetch("http://localhost:3000/si?p=" + principal + "&r=" + interest + "&t=" + time);
+
+        const ans = await respond.json();
+
+        // now I have my json respond as ans
+
+        document.getElementById("si").innerHTML = JSON.stringify(ans);
+
+    }
+</script>
+
+<body>
+    <input type="text" id="principal"> </input>
+    <br>
+    <input type="text" id="interest"> </input>
+    <br>
+    <input type="text" id="time"> </input>
+    <br>
+
+    <button onclick="calculateSI()">Click to calculate SI</button>
+    <br>
+    <div id="si"></div>
+</body>
+
+</html>
