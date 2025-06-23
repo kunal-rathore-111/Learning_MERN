@@ -1,0 +1,28 @@
+<html>
+
+<script>
+    async function populateDiv() {
+
+        const a = document.getElementById("firstNo").value;
+        const b = document.getElementById("secondNo").value; // get the value of the element
+
+        const response = await fetch("https://sum-server.100xdevs.com/sum?a=" + a + "&b= " + b);  //promise
+        const ans = await response.text(); // promise
+
+        document.getElementById("finalSum").innerHTML = ans;  //DOM
+
+    }
+</script>
+
+<body>
+
+    <input id="firstNo" type="text" placeholder="enter first no."></input>
+    <br>
+    <input id="secondNo" type="text" placeholder="enter second no."></input>
+    <br>
+    <br>
+    <button onclick="populateDiv()">Caluclate sum</button>
+    <div id="finalSum"></div>
+</body>
+
+</html>

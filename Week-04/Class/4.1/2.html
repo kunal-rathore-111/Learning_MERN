@@ -1,0 +1,36 @@
+<!-- Debounce -->
+
+<html>
+
+<script>
+
+    let t;
+    function debounceCalculateSum() {
+
+        clearTimeout(t);
+
+        t = setTimeout(function () { calculateSum() }, 10000);
+    }
+    async function calculateSum() {
+        const a = document.getElementById("firstInput").value;
+        const b = document.getElementById("secondInput").value;
+
+        const respond = await fetch("https//:sum/?a=" + a + "&b=" + b);
+
+        const ans = await respond.text();
+
+        document.getElementById("debouncee").innerHTML = ans;
+    }
+</script>
+
+<body>
+
+    <input oninput="debounceCalculateSum()" type="text" id="firstInput" placeholder="enter firstInput"> </input>
+
+    <input oninput="debounceCalculateSum()" type="text" id="secondInput" placeholder="enter secondInput"> </input>
+
+    <div id="debouncee"></div>
+
+</body>
+
+</html>
