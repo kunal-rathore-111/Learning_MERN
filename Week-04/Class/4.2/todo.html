@@ -1,0 +1,51 @@
+<html>
+
+
+<body>
+    <input type="text" id="firstInput" placeholder="enter task">
+    <input type="text" id="secondInput" placeholder="enter discription">
+    <button onclick="">Add task</button>
+    <div id="container"></div>
+</body>
+
+
+<script>
+    let id = 1;
+
+    function createChild(task, discription, idNo) {
+        // creating parent child
+        let parent = document.createElement("div");
+
+        // creating childs
+        let child1 = document.createElement("div");
+        let child2 = document.createElement("div");
+        let child3 = document.createElement("button");
+
+        child1.innerHTML = task;
+        child2.innerHTML = discription;
+        child3.innerHTML = "Mark as done";
+
+        parent.appendChild(child1);
+        parent.appendChild(child2);
+        parent.appendChild(child3);
+
+        parent.setAttribute("id", idNo);
+        return parent;
+    }
+
+    function changeDomAccState(state) {
+        const parent = document.getElementById("container");
+        parent.innerHTML = "";
+
+        for (let i = 0; i < state.length; i++) {
+            const child = createChild(state[i].task, state[i].discription, state[i].id);
+            parent.appendChild(child);
+        }
+
+
+    }
+
+    changeDomAccState([{ task: "gym", discription: "go gym", id: 1 }, { task: "gym2", discription: "go gym2", id: 2 }]);
+</script>
+
+</html>
