@@ -1,0 +1,33 @@
+<html>
+
+<body>
+    <div id="parent"></div>
+</body>
+
+<script>
+    let state = {
+        count: 0
+    }
+
+    function onButtonPress() {
+        state.count++;
+        rerender();
+
+    }
+
+    function rerender() {
+        let parent = document.getElementById("parent");
+        parent.innerHTML = "";
+        parent.appendChild(createButton(state.count));
+    }
+
+    function createButton(count) {
+        let child = document.createElement("button");
+        child.innerHTML = `Count ${count}`;
+        child.setAttribute("onclick", "onButtonPress()");
+        return child;
+    }
+    rerender();
+</script>
+
+</html>
