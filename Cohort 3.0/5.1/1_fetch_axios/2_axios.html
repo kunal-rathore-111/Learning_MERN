@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- give acces to use axios http client -->
+</head>
+
+<body>
+
+
+    <div>Hi there</div>
+
+    <div id="Data1"></div>
+
+</body>
+
+<script>
+    async function getData() {
+        const response = await axios("https://jsonplaceholder.typicode.com/todos/1");  // this does not require one more time to convert it in json format like fetch requires
+
+        const element = document.getElementById("Data1");
+        // element.innerHTML = JSON.stringify(response);
+        element.innerHTML = JSON.stringify(response.data);
+    }
+    getData();
+</script>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Todo-Using DOM only html</title>
+</head>
+
+<body>
+
+    <input type="text" id="task" placeholder="Enter task">
+    <button onclick="addTask()">Add task</button>
+    <button onclick="deleteFirst()">Delete First Todo</button>
+    <button onclick="deleteLast()">Delete Last Todo</button>
+    <div id="mainElement"></div>
+
+</body>
+
+<script>
+
+    let todos = [];
+
+    function addTask() {
+        const task = document.getElementById("task").value;
+        todos = [...todos, { title: task }];
+
+        render();
+    }
+
+
+    function deleteFirst() {
+        todos.splice(0, 1);
+        render();
+    }
+    function deleteLast() {
+        todos.splice(todos.length - 1, 1);
+        render();
+    }
+
+
+    function render() {
+        let mainElement = document.getElementById("mainElement");
+        mainElement.innerHTML = "";
+        mainElement.appendChild(createChilds());
+    }
+    function createChilds() {
+
+        let parentElement = document.createElement("div");
+
+        todos.map(function (t) {
+
+            // create child -> enter todo -> append to parent
+
+            let child = document.createElement("h3");
+            child.innerHTML = t.title;
+            parentElement.append(child);
+        })
+
+        return parentElement;
+
+    }
+
+</script>
+
+</html>

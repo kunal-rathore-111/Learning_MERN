@@ -1,0 +1,74 @@
+<html lang="en">
+
+<body>
+
+    <input type="text" placeholder="Enter task" id="task">
+    <button onclick="addTodo()">Add task</button>
+    <button onclick="DeleteFirstTodo()">Delete First todo</button>
+    <button onclick="DeleteLastTodo()">Delete Last todo</button>
+    <div id="parentDiv"></div>
+
+
+
+</body>
+
+<script>
+
+    let todos = [];
+    let iD = 1;
+    function addTodo() {
+        const task = document.getElementById("task").value;
+        todos = [...todos, { title: task, taskID: iD++ }];
+
+        render(todos);
+    }
+
+    function render(todos) {
+
+        const parent = document.getElementById("parentDiv");
+        parent.innerHTML = "";
+        parent.appendChild(createChild(todos));
+    }
+
+    function createChild(todos) {
+        let parent1 = document.createElement("div");
+
+        todos.map(function (t) {
+            let headingTitle = document.createElement("h3");
+            headingTitle.innerHTML = t.title;
+
+            let deleteButton = document.createElement("button");
+            deleteButton.innerHTML = "Delete Task";
+
+            deleteButton.onclick = function () {
+                deleteTask(t.taskID);
+            };
+
+            let childDiv = document.createElement("div");
+            childDiv.appendChild(headingTitle);
+            childDiv.appendChild(deleteButton);
+            parent1.appendChild(childDiv);
+        })
+        return parent1;
+    }
+
+    function DeleteFirstTodo() {
+        todos.splice(0, 1);
+        render(todos);
+    }
+    function DeleteLastTodo() {
+
+        todos.splice(todos.length - 1, 1);
+        render(todos);
+
+    }
+
+    function deleteTask(i) {
+        todos = todos.filter(function (t) { return t.taskID != i });
+        render(todos);
+    }
+
+</script>
+
+
+</html>
