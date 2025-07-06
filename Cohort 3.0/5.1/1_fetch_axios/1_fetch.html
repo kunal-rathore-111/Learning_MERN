@@ -1,0 +1,33 @@
+<html lang="en">
+
+<body>
+
+    <h1>Hii</h1>
+
+    <div id="rawData1"></div>
+
+
+</body>
+
+<script>
+    async function getData() {
+        const rawData = await fetch("https://jsonplaceholder.typicode.com/todos/1", { headers: { "name": "kunal" } }); //background req sending to server 
+
+
+        const response = await rawData.json();  // .json because the respond is in json format
+        const a = document.getElementById("rawData1");
+        /*   a.innerHTML = response.userId;       // response is a json object in which one let is a userId which will be store in rawData1 */
+
+        a.innerHTML = JSON.stringify(response); // convert in string format
+
+    }
+    getData();
+
+
+    // rawData.json() -> used cause the response we got can be of any type so we need to convert them in json
+
+
+
+</script>
+
+</html>
