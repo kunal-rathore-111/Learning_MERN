@@ -60,4 +60,17 @@ app.post("/signin", (req, res) => {
 
 });
 
+app.get("/me", (req, res) => {
+    const token = req.headers.token;
+
+    const findUserBytoken = users.find(function (u) {
+        return (u.token == token);
+    }) //hitting dB to match the token and store only that user in findUserBytoken
+
+    if (findUserBytoken) {
+        res.json({ username: findUserBytoken.username, password: findUserBytoken.password })
+    }
+    else { res.status(404).json({ mssg: "Incorrect token" }) }
+})
+
 app.listen(3000);
