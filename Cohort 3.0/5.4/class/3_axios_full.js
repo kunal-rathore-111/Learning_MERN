@@ -11,7 +11,7 @@ async function main() {
         method: "POST",
         data: { work: "student", class: "2nd" },
         headers: { username: "Panda", password: "2343", age: "15" },
-    })
+    });
 
 }
 
