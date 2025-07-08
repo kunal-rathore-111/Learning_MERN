@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SignIn/SignUp</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+    <script>
+
+        async function SignUp() {
+            const username = document.getElementById("signup_username").value;
+            const password = document.getElementById("signup_password").value;
+
+            //send req
+
+            const repsonse = await axios({
+                url: "http://localhost:3000/signup",
+                method: "POST",
+                data: { username: username, password: password },
+            })
+            alert(`${JSON.stringify(repsonse.data)}`);
+
+        }
+
+        async function SignIn() {
+
+            const username = document.getElementById("signup_username").value;
+            const password = document.getElementById("signup_password").value;
+
+            //send req
+
+            const response = await axios({
+                url: "http://localhost:3000/signin",
+                method: "POST",
+                data: { username: username, password: password },
+            })
+
+            const token = response.headers["token"]; // it says tumhe repsonse object kae header me ek token name variable milega,.....uska value const token mae store kardo
+
+            localStorage.setItem("token", token); // set the token in localStorage of website and keep until logout
+
+            alert(`${JSON.stringify(response.data)}`);
+
+        }
+
+
+    </script>
+
+
+</head>
+
+<body>
+
+    <!-- Signup section -->
+    <div>
+        SignUp
+        <input id="signup_username" type="text" name="username" placeholder="username">
+        <input id="signup_password" type="password" name="password" placeholder="password">
+        <button onclick="SignUp()">Submit</button>
+    </div>
+
+    <!-- SignIn section -->
+    <br>
+    <div>
+        SignIn
+        <input id="signIn_username" type="text" name="username" placeholder="username">
+        <input id="signIn_password" type="password" name="password" placeholder="password">
+        <button onclick="SignIn()">SignIn</button>
+    </div>
+
+    <!-- User Information -->
+    <br>
+    <div>User Information
+        <div id="info"></div>
+    </div>
+
+    <!-- Log Out -->
+    <br>
+    <button onclick="logOut()">Log Out</button>
+    </div>
+
+</body>
+
+</html>

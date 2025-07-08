@@ -14,6 +14,8 @@
 
         JWT are not for encription that was only it one usecase
         they are stateless means store automatically
+
+        They can be decoded by anyone but no issue we have verify check
 */
 
 
@@ -72,7 +74,6 @@ app.get("/me", (req, res) => {
     const decodeToken = jwt.verify(token, JWT_Secret); // it returns object with the thing(variable) I passed while encoding in signin request
     const usernameFromdecodeToken = decodeToken.username;
 
-    console.log(usernameFromdecodeToken);
 
     const findUserByUserName = users.find(function (u) { return (u.username == usernameFromdecodeToken) })
 
