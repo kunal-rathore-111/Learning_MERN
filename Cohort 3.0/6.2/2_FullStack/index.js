@@ -1,7 +1,7 @@
 
+
+
 //Backend
-
-
 const express = require("express");
 
 const app = express();
@@ -26,7 +26,7 @@ function auth(req, res, next) {
         next();
     }
     else {
-        res.status(404).json({ mssg: "Please log in with correct token" });
+        res.json({ mssg: "Please log in with correct token" });
     }
 
 }
@@ -71,14 +71,13 @@ app.post("/signin", (req, res) => {
         res.header("token", token);
         res.json({ mssg: "Check respond headers" });
     }
-    else { res.status(404).json({ mssg: "Wrong username or password" }); }
+    else { res.json({ mssg: "Wrong username or password" }); }
 
 });
 
 
 
 app.get("/me", auth, (req, res) => {
-
 
     res.json({ username: req.username, password: req.password });
 
