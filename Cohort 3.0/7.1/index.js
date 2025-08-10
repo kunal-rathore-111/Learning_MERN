@@ -1,10 +1,9 @@
 
 
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const { usersModel, todosModel } = require("./db.js");
-const { signinAuth, jwt_secret, auth } = require("./auth.js");
+const { signinAuth, auth } = require("./auth.js");
 
 mongoose.connect("mongodb+srv://kunaldell01:123@cluster0.0qgphf9.mongodb.net/todo-1");
 

@@ -47,4 +47,4 @@ async function auth(req, res, next) {
 }
 
 
-module.exports = ({ signinAuth, jwt_secret, auth });
+module.exports = ({ signinAuth, auth });
