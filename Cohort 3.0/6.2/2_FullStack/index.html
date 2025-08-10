@@ -7,85 +7,12 @@
     <title>SignIn/SignUp</title>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-
-    <script>
-
-        async function SignUp() {
-            const username = document.getElementById("signup_username").value;
-            const password = document.getElementById("signup_password").value;
-
-            //send req
-
-            const repsonse = await axios({
-                url: "http://localhost:3000/signup",
-                method: "POST",
-                data: { username: username, password: password },
-            })
-            alert(`${repsonse.data.mssg}`);
-
-        }
-
-        async function SignIn() {
-
-            const username = document.getElementById("signIn_username").value;
-            const password = document.getElementById("signIn_password").value;
-
-            //send req
-
-            const response = await axios({
-                url: "http://localhost:3000/signin",
-                method: "POST",
-                data: { username: username, password: password },
-            })
-
-            if (response.headers["token"]) {
-                const token = response.headers["token"]; // it says tumhe repsonse object kae header me ek token name variable milega,.....uska value const token mae store kardo string format mae
-                localStorage.setItem("token", token); // set the token in localStorage of website and keep until logout
-            }
-
-            console.log("hi");
-            alert(`${response.data.mssg}`);
-
-        }
-
-        async function GetUserInfo() {
-            console.log("get usr");
-
-            const token = localStorage.getItem("token");
-
-            if (!token) { alert("Log in first"); }
-
-            else {
-                const response = await axios({
-                    url: "http://localhost:3000/me",
-                    method: "GET",
-                    headers: { token: token },
-                })
-
-                let info = document.getElementById("info");
-                info.innerHTML = `Username: ${response.data.username} <br> Password: ${response.data.password}`;
-            }
-        }
-
-        function logOut() {
-            localStorage.token = "";
-            alert("Logged out");
-        }
-    </script>
-
-
 </head>
 
 <body>
 
     <!-- Signup section -->
-    <div>
-        SignUp
-        <input id="signup_username" type="text" name="username" placeholder="username">
-        <input id="signup_password" type="password" name="password" placeholder="password">
-        <button onclick="SignUp()">Submit</button>
-    </div>
+    <div id="signUp"></div>
 
     <!-- SignIn section -->
     <br>
@@ -109,5 +36,81 @@
     </div>
 
 </body>
+
+<script>
+
+    function checkSignUp() {
+        if (!localStorage.getItem("token") || localStorage.getItem("token") == "") {
+            const element = document.getElementById("signUp");
+            element.innerHTML = ` <div> SignUp        <input id="signup_username" type="text" name="username" placeholder="username">        <input id="signup_password" type="password" name="password" placeholder="password">        <button onclick="SignUp()">Submit</button></div>`;
+
+        }
+    }
+    checkSignUp();
+    async function SignUp() {
+        const username = document.getElementById("signup_username").value;
+        const password = document.getElementById("signup_password").value;
+
+        //send req
+
+        const repsonse = await axios({
+            url: "http://localhost:3000/signup",
+            method: "POST",
+            data: { username: username, password: password },
+        })
+        alert(`${repsonse.data.mssg}`);
+
+
+    }
+
+    async function SignIn() {
+
+        const username = document.getElementById("signIn_username").value;
+        const password = document.getElementById("signIn_password").value;
+
+        //send req
+
+        const response = await axios({
+            url: "http://localhost:3000/signin",
+            method: "POST",
+            data: { username: username, password: password },
+        })
+
+        if (response.headers["token"]) {
+            const token = response.headers["token"]; // it says tumhe repsonse object kae header me ek token name variable milega,.....uska value const token mae store kardo string format mae
+            localStorage.setItem("token", token); // set the token in localStorage of website and keep until logout
+        }
+
+        console.log("hi");
+        alert(`${response.data.mssg}`);
+        location.reload();
+    }
+
+    async function GetUserInfo() {
+        console.log("get usr");
+
+        const token = localStorage.getItem("token");
+
+        if (!token) { alert("Log in first"); }
+
+        else {
+            const response = await axios({
+                url: "http://localhost:3000/me",
+                method: "GET",
+                headers: { token: token },
+            })
+
+            let info = document.getElementById("info");
+            info.innerHTML = `Username: ${response.data.username} <br> Password: ${response.data.password}`;
+        }
+    }
+
+    function logOut() {
+        localStorage.token = "";
+        alert("Logged out");
+        location.reload();
+    }
+</script>
+
 
 </html>

@@ -1,0 +1,11 @@
+
+// password hashing
+// error handling
+// relationship in mongo db
+// validation
+
+// Password hasing -> converting the password into some long string, where hasing is one way so when signup we need to hash password and store in db and when signin also need to hash again to cross check the password is correct or not 
+// but there is a problem if multiple users have same password and one user password got then all users passwords can be determine, so there is a way i.e. we need to figure out the users will have different hash when same password (concept of salting => pass + random string => hash )
+
+
+// bcrypt -> is a cryptographic hashing algo. , it has salting concept and designed for securing password and making the brute force attack next to impossible , it need bcrypt library
