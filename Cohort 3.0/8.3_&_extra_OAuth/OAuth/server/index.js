@@ -11,16 +11,25 @@ require("./db/db");
 const app = express();
 const PORT = process.env.PORT;
 
+// need to change both for development 
+const serverUrl = "https://google-login-demo-project-05-backen.vercel.app";
+const clientUrl = "https://google-login-demo-project-05-fronte.vercel.app";
+
 app.use(cors({
-    origin: "http://localhost:5500",
+    origin: [clientUrl, "http://localhost:5500"],
     credentials: true
 }))
 
+app.set("trust proxy", 1);
 
 app.use(session({
     secret: "SomethingCrazy",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        sameSite: "none",
+        secure: true, // for production true, and for development need to set to false for HTTP requests
+    }
 }));
 
 app.use(passport.initialize());
@@ -30,7 +39,7 @@ passport.use(
     new OAuth2Strategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://localhost:3000/google/callback",
+        callbackURL: `${serverUrl}/google/callback`
     },
         async (accessToken, refreshToken, profile, done) => {
             try {
@@ -67,7 +76,7 @@ app.get('/auth/google', passport.authenticate("google", {
 }));
 
 app.get('/google/callback', passport.authenticate("google", {
-    successRedirect: "http://localhost:5500/client/index.html",
+    successRedirect: `${clientUrl}`,
     failureRedirect: "/auth/google"
 }));
 
@@ -77,7 +86,7 @@ app.get("/logout", (req, res, next) => {
             next(err);
         }
         console.log("logged out");
-        res.redirect("http://localhost:3000/logOutMessage");
+        res.redirect(`${serverUrl}/logOutMessage`);
     })
 });
 
@@ -91,6 +100,10 @@ app.get('/isloggedin', (req, res, next) => {  // used to manipulate DOM to load 
         return res.status(200).json({ userData: req.user });
     }
     return res.status(404).json({ isLoggedIn: false });
+})
+
+app.get("/", (req, res) => {
+    res.json({ message: "Server running" });
 })
 
 
