@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { RecoilRoot, useRecoilValue } from "recoil"
+import { todoAtomFamily } from "./atomFamily"
 
-function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+
+export default function App() {
+
+  return <RecoilRoot>
+    <LoadTodo></LoadTodo>
+  </RecoilRoot>
+
 }
 
-export default App
+
+function LoadTodo() {
+  return <div>
+    <Todo id={1}></Todo>
+    <Todo id={2}></Todo>
+    <Todo id={3}></Todo>
+  </div>
+}
+
+
+function Todo({ id }) {
+
+  const todos = useRecoilValue(todoAtomFamily(id));
+  console.log(todos);
+  return <div className="todo">
+    <h2>Id- {todos.id}</h2>
+    <h2>{todos.title}</h2>
+    <h2> {todos.isDone ? "Done" : "Not Done"}</h2>
+  </div>
+}
