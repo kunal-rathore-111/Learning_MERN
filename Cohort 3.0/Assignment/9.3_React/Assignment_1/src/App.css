@@ -1,0 +1,112 @@
+* {
+    box-sizing: border-box;
+}
+
+.HeroDiv {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profileHero {
+    height: 330px;
+    width: 300px;
+    border: .5px solid rgba(0, 0, 0, 0.212);
+    border-radius: 18px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px #9b8b8b;
+    overflow: hidden;
+
+    min-width: 243px;
+    min-height: 330px;
+
+}
+
+.profileHero .UpDiv {
+    height: 37%;
+    width: 100%;
+    background-color: rgba(19, 94, 255, 0.84);
+    position: relative;
+}
+
+.profileHero .DownDiv {
+    height: 63%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.84);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.profileHero .UpDiv .profileImgDiv {
+    height: 110px;
+    width: 110px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    bottom: -25%;
+    left: 50%;
+    transform: translate(-50%);
+    border: 5px solid rgb(145, 132, 132);
+}
+
+
+.profileHero .UpDiv .profileImgDiv .profileImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.8);
+    object-position: -17px 14px;
+}
+
+.profileHero .DownDiv .detailsDiv {
+    height: 100%;
+    border: 3px solid rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 50px;
+    align-items: center;
+    gap: 10px;
+}
+
+.profileHero .DownDiv .detailsDiv .jobSpan {
+    font-family: sans-serif;
+    font-size: 16px;
+    letter-spacing: 1.2px;
+    font-weight: 500;
+}
+
+.profileHero .DownDiv .detailsDiv .detailsSpan {
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+
+.profileHero .DownDiv .detailsDiv .imagesDiv {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.profileHero .DownDiv .detailsDiv .imagesDiv img {
+    height: 28px;
+    width: 28px;
+}
+
+.profileHero .DownDiv .detailsDiv .messageLink {
+
+    text-decoration: none;
+    color: #ffffff;
+    background-color: rgba(0, 72, 255, 0.812);
+    height: 28px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
