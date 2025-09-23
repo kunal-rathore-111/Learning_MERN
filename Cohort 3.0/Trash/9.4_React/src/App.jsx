@@ -36,6 +36,7 @@ class ErrorBoundery_component extends React.Component {
   }
 
   componentDidCatch(err, info) { console.log("Error caught- ", err, info); }
+
   render() {
     if (this.state.hasError) {
       return <h2 style={{ background: "grey", height: "250px", width: "250px" }}>Something went wrong </h2>
