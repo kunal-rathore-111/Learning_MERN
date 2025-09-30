@@ -2,13 +2,12 @@ import { useEffect, useRef } from "react";
 
 
 
-export function usePrev(value) {
+export function usePrev(valuw) {
 
-    const val = useRef();
-
-    useEffect(() => {
-        val.current = value;
-    }, [value])
-
-    return val.current;    // here the useEffect execute after the returning
+    const val = useRef({ prv: valuw, new: valuw });
+    if (val.current.new != valuw) {
+        val.current.prv = val.current.new;
+        val.current.new = valuw;
+    }
+    return val.current.prv;    // here the useEffect execute after the returning
 }

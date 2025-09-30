@@ -31,7 +31,7 @@ export default function App() {
 const Counter = () => {
 
     const { count } = useContext(CounterContext);
-    const prv = usePrev(count);
+    const prv = usePrev(count, 0);
     return <div>
         <h3>Count- {count}</h3>
         <h3>Prev- {prv}</h3>
