@@ -8,7 +8,7 @@ export default function App() {
 
   const value = useRef<HTMLInputElement>(null);
 
-  const counter = useSelector((state: RootState) => state.counter.value); // fetch data
+  const counter = useSelector((state: RootState) => state.counterReducer.value); // fetch data
   const dispatch = useDispatch();// to use any reducer logic
 
   function handleIncrement() {
