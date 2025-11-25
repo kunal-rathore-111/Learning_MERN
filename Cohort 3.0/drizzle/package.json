@@ -1,0 +1,27 @@
+{
+  "name": "drizzle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --watch src --ext ts --exec \"tsc && node dist/index.js\"",
+    "generate": "npx drizzle-kit generate --config drizzle.config/drizzle.config.ts",
+    "migrate": "npx drizzle-kit migrate --config drizzle.config/drizzle.config.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.44.7",
+    "nodemon": "^3.1.11",
+    "postgres": "^3.4.7",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "drizzle-kit": "^0.31.7"
+  }
+}

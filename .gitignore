@@ -28,3 +28,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+node_modules
+.env
+dist
+drizzle.config/*.map
+drizzle.config/*.js
+drizzle.config/*.d.ts

@@ -1,0 +1,1 @@
+ALTER TABLE "UsersTable" RENAME TO "userstable";
