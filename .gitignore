@@ -4,6 +4,7 @@
 node_modules/
 
 .env
+.env.*
 # Logs
 logs
 *.log
@@ -16,6 +17,9 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+build/
+coverage/
+out/
 *.local
 
 # Editor directories and files
