@@ -1,0 +1,5 @@
+/* only applicable to PAGE.tsx */
+
+a:hover {
+    background-color: red;
+}

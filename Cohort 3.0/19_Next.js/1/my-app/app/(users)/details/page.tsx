@@ -1,6 +1,14 @@
 
+"use client";
+
+import Link from "next/link";
+
 export default function Details() {
-    return <div>
-        HI this is from Details
-    </div>
+
+    return (
+        <div>
+            <button><Link href={'/'}>Back</Link></button>
+            HI this is from Details
+        </div>
+    );
 }
