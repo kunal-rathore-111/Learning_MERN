@@ -1,6 +1,8 @@
 import axios from "axios"
 import Link from "next/link";
+import { Suspense } from "react";
 import z from "zod";
+import Loading from "../loading";
 
 interface DataFetchServerCompInput {
     searchParams: Promise<{ name: string }>
@@ -34,25 +36,6 @@ export default async function DataFetchServerComp(props: DataFetchServerCompInpu
     const result = zO.safeParse({ name });
 
     if (result.success) {
-        const url = 'https://api.genderize.io/?name='
-        const respond = await axios(`${url + name}`, {
-            method: "GET"
-        });
-
-        const data = respond.data;
-        // console.log(data);
-
-        const gender = data?.gender ? data.gender.toUpperCase() : "UNKNOWN";
-        const probability = data?.probability ? Math.round(data.probability * 100) : 0;
-        const displayName = data?.name ? data.name : "Anonymous";
-        const count = data?.count ? data.count.toLocaleString() : "0";
-
-        // Determine confidence level text
-        let confidenceLevel = "unsure";
-        if (probability > 90) confidenceLevel = "absolutely certain";
-        else if (probability > 75) confidenceLevel = "pretty darn sure";
-        else if (probability > 50) confidenceLevel = "somewhat confident";
-        else confidenceLevel = "making a guess";
 
         return (
             <div className="min-h-screen flex flex-col items-center justify-center bg-background relative overflow-hidden text-center p-4">
@@ -60,38 +43,11 @@ export default async function DataFetchServerComp(props: DataFetchServerCompInpu
 
                 <main className="z-10 flex flex-col items-center w-full max-w-4xl cursor-default">
 
-                    <div className="mb-2 sm:mb-4">
-                        <h2 className="text-lg sm:text-3xl md:text-4xl font-bold font-system text-black tracking-wide">
+                    Static data
 
-                            {displayName} is...
-                        </h2>
-                    </div>
-
-                    <div className="relative flex flex-col items-center justify-center w-full min-h-30 ">
-                        <h1 className="text-7xl sm:text-[12rem] md:text-[20rem] leading-none font-black font-system text-black tracking-tighter z-10 text-center">
-                            {gender}
-                        </h1>
-
-                        {gender !== "UNKNOWN" && (
-                            <div className="absolute  sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 sm:-right-6 md:-right-16 right-0 z-20 rotate-[-10deg]">
-                                <div className="bg-accent border-4 border-black rounded-full w-14 h-14 sm:w-24 sm:h-24 md:w-32 md:h-32 flex items-center justify-center shadow-[4px_4px_0px_0px_#000] animate-float" style={{ animationDelay: '0.5s' }}>
-                                    <span className="text-sm sm:text-3xl md:text-4xl font-black font-system text-black">{probability}%</span>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
-                    <p className="text-sm sm:text-xl md:text-2xl font-medium text-gray-600 mt-4 font-sans">
-                        confidence level: {confidenceLevel}
-                    </p>
-
-                    <div className="mt-8 sm:mt-12">
-                        <EnterNameLinkComp label="try another name" />
-                    </div>
-
-                    <p className="text-xs sm:text-sm md:text-base text-gray-400 font-sans mt-6 sm:mt-8 w-full flex justify-center">
-                        based on {count} data points
-                    </p>
+                    <Suspense fallback={<Loading />}>
+                        <DataLoadingComp name={name} />
+                    </Suspense>
 
                 </main>
             </div>
@@ -99,6 +55,68 @@ export default async function DataFetchServerComp(props: DataFetchServerCompInpu
     } else {
         return renderErrorHTML(result.error.flatten().fieldErrors.name?.[0] ?? "Unknown error");
     }
+
+}
+
+async function DataLoadingComp({ name }: { name: string }) {
+
+    const url = 'https://api.genderize.io/?name='
+    const respond = await axios(`${url + name}`, {
+        method: "GET"
+    });
+
+    const data = respond.data;
+    // console.log(data);
+
+    const gender = data?.gender ? data.gender.toUpperCase() : "UNKNOWN";
+    const probability = data?.probability ? Math.round(data.probability * 100) : 0;
+    const displayName = data?.name ? data.name : "Anonymous";
+    const count = data?.count ? data.count.toLocaleString() : "0";
+
+    // Determine confidence level text
+    let confidenceLevel = "unsure";
+    if (probability > 90) confidenceLevel = "absolutely certain";
+    else if (probability > 75) confidenceLevel = "pretty darn sure";
+    else if (probability > 50) confidenceLevel = "somewhat confident";
+    else confidenceLevel = "making a guess";
+
+    return (
+        <>
+            <div className="mb-2 sm:mb-4">
+                <h2 className="text-lg sm:text-3xl md:text-4xl font-bold font-system text-black tracking-wide">
+
+                    {displayName} is...
+                </h2>
+            </div>
+
+            <div className="relative flex flex-col items-center justify-center w-full min-h-30 ">
+                <h1 className="text-7xl sm:text-[12rem] md:text-[20rem] leading-none font-black font-system text-black tracking-tighter z-10 text-center">
+                    {gender}
+                </h1>
+
+                {gender !== "UNKNOWN" && (
+                    <div className="absolute  sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 sm:-right-6 md:-right-16 right-0 z-20 rotate-[-10deg]">
+                        <div className="bg-accent border-4 border-black rounded-full w-14 h-14 sm:w-24 sm:h-24 md:w-32 md:h-32 flex items-center justify-center shadow-[4px_4px_0px_0px_#000] animate-float" style={{ animationDelay: '0.5s' }}>
+                            <span className="text-sm sm:text-3xl md:text-4xl font-black font-system text-black">{probability}%</span>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            <p className="text-sm sm:text-xl md:text-2xl font-medium text-gray-600 mt-4 font-sans">
+                confidence level: {confidenceLevel}
+            </p>
+
+            <div className="mt-8 sm:mt-12">
+                <EnterNameLinkComp label="try another name" />
+            </div>
+
+            <p className="text-xs sm:text-sm md:text-base text-gray-400 font-sans mt-6 sm:mt-8 w-full flex justify-center">
+                based on {count} data points
+            </p>
+        </>
+
+    )
 
 }
 
