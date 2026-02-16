@@ -1,22 +1,15 @@
-import { db } from "@/config/db"
-import { users } from "@/config/schema";
+import Link from "next/link";
 
-export const dynamic = "force-dynamic"
+export default function HomePage() {
 
+  return <div>
 
-export default async function HomePage() {
-
-  const randomNumber = Math.round((Math.random() * 100 + Math.random() * 10));
-
-  const result = await db.insert(users).values({ username: 'kunal', email: 'kunal' + randomNumber + '@gmail.com' }).returning();
-
-  console.log(result);
-
-  console.log('dynamic')
-
-  return <div> <h1>HI </h1> <br />
-
-    {JSON.stringify(result[0])}
-
+    <Link href={'/dynamic'}>Go to DYNAMIC</Link>
+    <br />
+    <Link href={'/static'}>Go to STATIC</Link>
+    <br />
+    <Link href={'/cache'}>Go to Cache</Link>
+    <br />
+    <Link href={'/not-found'}>Go to NotFound using notFound()  if you not add name= SOMETHING in searchParams</Link>
   </div>
 }
