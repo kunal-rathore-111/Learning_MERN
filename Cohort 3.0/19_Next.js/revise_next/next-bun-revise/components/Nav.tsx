@@ -18,6 +18,9 @@ const Nav = () => {
             <Link href={'/catch-all-segment/hi'}>Catch all segments</Link>
             <Link href={'/server-data-fetch'}>server-data-fetch</Link>
             <Link href={'/suspense-data-fetch'}>suspense-data-fetch</Link>
+            <Link href={'/fetch-data-sql'}>fetch-data-sql</Link>
+            <Link href={'/fetch-data-sql-isr'}>fetch-data-sql-isr</Link>
+            <Link href={'/get-email-notfound'}>get-email-notfound</Link>
         </div>
     </nav>
 }
