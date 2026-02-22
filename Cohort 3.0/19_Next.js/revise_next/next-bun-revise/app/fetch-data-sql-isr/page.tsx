@@ -2,7 +2,7 @@ import { db } from "@/drizzle/db";
 import { userTable } from "@/drizzle/schema";
 import { cache } from "react";
 
-export const revalidate = 20; // if someone comes to this page after 10seconds then it refetch the data
+export const revalidate = 10; // if someone comes to this page after 10seconds then it refetch the data
 export default async function SqlFunction() {
     return <div>
         <LoadDataComp />

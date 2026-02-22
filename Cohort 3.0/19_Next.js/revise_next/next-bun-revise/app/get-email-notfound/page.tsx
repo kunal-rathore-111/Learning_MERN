@@ -12,7 +12,6 @@ export default async function ShowemailIfPresent({ searchParams }: ShowemailIfPr
     if (!emailToFind) return <div>Please enter email in route as searchParams</div>
 
     const data = await db.select().from(userTable);
-
     console.log(data);
     const isFound = data.find(x => x.email === emailToFind)
 

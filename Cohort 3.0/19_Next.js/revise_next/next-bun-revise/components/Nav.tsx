@@ -21,6 +21,8 @@ const Nav = () => {
             <Link href={'/fetch-data-sql'}>fetch-data-sql</Link>
             <Link href={'/fetch-data-sql-isr'}>fetch-data-sql-isr</Link>
             <Link href={'/get-email-notfound'}>get-email-notfound</Link>
+            <Link href={'/servercomp-server-action'}>servercomp-server-action</Link>
+            <Link href={'/clientcomp-form-action'}>clientcomp-form-action</Link>
         </div>
     </nav>
 }
