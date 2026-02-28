@@ -1,0 +1,21 @@
+{
+  "name": "http-server",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b",
+    "start": "bun ./dist/index.js",
+    "dev": "tsc -b && bun ./dist/index.js"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.6",
+    "express": "^5.2.1"
+  }
+}
