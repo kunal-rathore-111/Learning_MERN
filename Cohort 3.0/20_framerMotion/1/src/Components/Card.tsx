@@ -1,5 +1,5 @@
 import { CgGames } from "react-icons/cg"
-import Imagee from "../public/images/image.jpg"
+import Imagee from "../public/images/panda.png"
 import { FaTimes } from "react-icons/fa"
 import { TbHours24, TbView360Number } from "react-icons/tb"
 import { AnimatePresence, easeInOut, motion } from "motion/react"
